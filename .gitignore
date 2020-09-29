@@ -1,0 +1,5 @@
+# All node_modules
+**/node_modules
+
+# VSCode server debug
+server/.vscode
