@@ -19,7 +19,7 @@ class CreateStudentService {
     );
 
     if (findStudentWithSameEmail) {
-      throw Error('This e-mail already exists.');
+      throw new Error('This e-mail already exists.');
     }
 
     const student = studentsRepository.create({ ra, name, email, cpf });
