@@ -1,5 +1,7 @@
 import { getCustomRepository } from 'typeorm';
 
+import AppError from '../errors/AppError';
+
 import Student from '../models/Student';
 import StudentsRepository from '../repositories/StudentsRepository';
 
@@ -19,7 +21,7 @@ class CreateStudentService {
     );
 
     if (findStudentWithSameEmail) {
-      throw new Error('This e-mail already exists.');
+      throw new AppError('This e-mail already exists.');
     }
 
     const student = studentsRepository.create({ ra, name, email, cpf });
