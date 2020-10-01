@@ -1,15 +1,15 @@
 import {
   Entity,
   Column,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('students')
-class Student {
-  @PrimaryColumn('varchar')
-  ra: string;
+@Entity('users')
+class User {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
   name: string;
@@ -18,7 +18,7 @@ class Student {
   email: string;
 
   @Column()
-  cpf: string;
+  password: string;
 
   @CreateDateColumn()
   created_at: Date;
@@ -27,4 +27,4 @@ class Student {
   updated_at: Date;
 }
 
-export default Student;
+export default User;
