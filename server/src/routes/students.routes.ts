@@ -1,18 +1,16 @@
 import { Router } from 'express';
 
-import StudentsRepository from '../repositories/StudentsRepository';
 import CreateStudentService from '../services/CreateStudentService';
 
 const studentsRouter = Router();
-const studentsRepository = new StudentsRepository();
 
-studentsRouter.post('/', (request, response) => {
+studentsRouter.post('/', async (request, response) => {
   try {
     const { name, email, ra, cpf } = request.body;
 
-    const createStudent = new CreateStudentService(studentsRepository);
+    const createStudent = new CreateStudentService();
 
-    const student = createStudent.execute({ name, email, ra, cpf });
+    const student = await createStudent.execute({ name, email, ra, cpf });
 
     return response.json(student);
   } catch (err) {

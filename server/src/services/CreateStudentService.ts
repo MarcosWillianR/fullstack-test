@@ -1,3 +1,5 @@
+import { getCustomRepository } from 'typeorm';
+
 import Student from '../models/Student';
 import StudentsRepository from '../repositories/StudentsRepository';
 
@@ -9,20 +11,20 @@ interface RequestDTO {
 }
 
 class CreateStudentService {
-  private studentsRepository: StudentsRepository;
+  public async execute({ name, email, ra, cpf }: RequestDTO): Promise<Student> {
+    const studentsRepository = getCustomRepository(StudentsRepository);
 
-  constructor(studentsRepository: StudentsRepository) {
-    this.studentsRepository = studentsRepository;
-  }
-
-  public execute({ name, email, ra, cpf }: RequestDTO): Student {
-    const findStudentWithSameEmail = this.studentsRepository.findByEmail(email);
+    const findStudentWithSameEmail = await studentsRepository.findByEmail(
+      email,
+    );
 
     if (findStudentWithSameEmail) {
       throw Error('This e-mail already exists.');
     }
 
-    const student = this.studentsRepository.create({ ra, name, email, cpf });
+    const student = studentsRepository.create({ ra, name, email, cpf });
+
+    await studentsRepository.save(student);
 
     return student;
   }
