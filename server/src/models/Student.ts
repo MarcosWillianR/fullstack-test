@@ -1,18 +1,18 @@
+import { Entity, Column, PrimaryColumn } from 'typeorm';
+
+@Entity('students')
 class Student {
+  @PrimaryColumn('varchar')
   ra: string;
 
+  @Column()
   name: string;
 
+  @Column()
   email: string;
 
+  @Column()
   cpf: string;
-
-  constructor({ ra, name, email, cpf }: Student) {
-    this.ra = ra;
-    this.name = name;
-    this.email = email;
-    this.cpf = cpf;
-  }
 }
 
 export default Student;
