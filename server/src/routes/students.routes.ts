@@ -2,7 +2,11 @@ import { Router } from 'express';
 
 import CreateStudentService from '../services/CreateStudentService';
 
+import ensureAuthenticated from '../middlewares/ensureAuthenticated';
+
 const studentsRouter = Router();
+
+studentsRouter.use(ensureAuthenticated);
 
 studentsRouter.post('/', async (request, response) => {
   try {
